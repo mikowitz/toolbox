@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+TEMPLATE = <<-TEX
+\\documentclass[10pt,a4paper]{book}
+\\usepackage{fancyhdr,poemscol}
+
+\\fancyhead{}
+\\fancyfoot{}
+
+\\runoverindent{0em}
+\\global\\verselinenumbersfalse
+
+\\begin{document}
+\\poemtitle{}
+\\begin{poem}
+
+\\begin{stanza}
+\\end{stanza}
+
+\\end{poem}
+\\end{document}
+TEX
+
+latest = Dir["#{ARGV[0]}*.tex"].sort_by do |f|
+  (f.match(/-(\d+)/) || [0, 0])[1].to_i
+end.last
+
+if latest 
+  if latest.match(/-\d+\.tex/)
+    next_rev = latest.gsub(/-(\d+)\.tex/) do |m|
+      "-#{$1.to_i + 1}.tex"
+    end
+  else
+    next_rev = "#{ARGV[0]}-1.tex"
+  end
+  cp(latest, next_rev)
+else
+  next_rev = "#{ARGV[0]}.tex"
+  File.open(next_rev, 'w') {|f| f << TEMPLATE }
+end
+
+system "vim #{next_rev}"

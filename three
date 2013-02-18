@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+puts Time.now.strftime('%A %B %e, %Y')
+good_things = []
+
+3.times { print 'what was one good thing that happened to you today? '; good_things << gets.chomp }
+
+good_things.each do |thing|
+  puts "-- #{thing}"
+end
+
+File.open('/Users/mikowitz/Dropbox/Personal/three_good_things.txt', 'a') do |f|
+  f << Time.now.strftime('%A %B %e, %Y')
+  f << "\n"
+  good_things.each do |thing|
+    f << "-- #{thing}\n"
+  end
+  f << "\n"
+end
