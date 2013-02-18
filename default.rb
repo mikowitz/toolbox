@@ -73,6 +73,7 @@ end
 SUPPORT
 
 gsub_file 'config/database.yml', /username:.*$/, 'username: postgres'
+rake 'db:create'
 
 if options[:devise_model]
   generate 'devise:install'
