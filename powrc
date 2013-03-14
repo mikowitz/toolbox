@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'securerandom'
+`echo export SECRET_TOKEN=#{SecureRandom.hex(32)} > ./.powrc
