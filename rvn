@@ -12,6 +12,7 @@ TEMPLATE = <<-TEX
 
 \\runoverindent{0em}
 \\global\\verselinenumbersfalse
+\\renewcommand{\\stanzaskip}{\\vspace{4mm}}
 
 \\begin{document}
 \\poemtitle{}
