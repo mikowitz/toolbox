@@ -14,6 +14,21 @@ TEMPLATE = <<-TEX
 \\global\\verselinenumbersfalse
 \\renewcommand{\\stanzaskip}{\\vspace{4mm}}
 
+\makeatletter
+\renewenvironment{pmclverse}[1][]{%
+\let\\=\@centercr%
+\list{}{%
+  \itemsep\z@
+  \itemindent -\runoverindentvalue
+  \listparindent \itemindent
+  \leftmargin 0em% change as desired
+  \rightmargin 2em% change as desired
+  \advance\leftmargin\runoverindentvalue
+}%
+\item[]}
+{\endlist}
+\makeatother
+
 \\begin{document}
 \\poemtitle{}
 \\begin{poem}
